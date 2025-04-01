@@ -21,13 +21,13 @@ X-Meet 是一個基於 Electron 開發的會議紀錄系統，能夠自動錄音
 ## 安裝教學
 
 ### Windows
-1. 下載 `dist/X-Meet-Setup-1.0.0.exe`
+1. https://drive.google.com/drive/folders/1tzMLAE82c-S5xp3XYa1w8VGN--a2CjfM?usp=drive_link 下載 `dist/X-Meet-Setup-1.0.0.exe`
 2. 執行安裝程式
 3. 選擇安裝目錄
 4. 完成安裝後，可以從開始選單或桌面捷徑啟動
 
 ### macOS
-1. 下載 `dist/X-Meet-1.0.0.dmg`
+1. https://drive.google.com/drive/folders/1tzMLAE82c-S5xp3XYa1w8VGN--a2CjfM?usp=drive_link 下載 `dist/X-Meet-1.0.0.dmg`
 2. 雙擊開啟 DMG 檔案
 3. 將 X-Meet 拖曳到 Applications 資料夾
 4. 從 Applications 資料夾或 Spotlight 啟動

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# 確保在專案根目錄
+cd "$(dirname "$0")/.."
+
+# 檢查 node_modules 是否存在
+if [ ! -d "node_modules" ]; then
+    echo "正在安裝依賴..."
+    npm install
+fi
+
+# 啟動開發環境
+echo "正在啟動開發環境..."
+npm start 

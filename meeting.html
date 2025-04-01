@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會議詳細資料</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-calendar-check text-primary"></i>
+                會議紀錄系統
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">
+                            <i class="bi bi-gear"></i> 設定
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0" id="meetingTitle"></h5>
+                <div>
+                    <button id="editMeetingBtn" class="btn btn-outline-primary btn-sm me-2">
+                        <i class="bi bi-pencil"></i> 編輯會議
+                    </button>
+                    <button id="deleteMeetingBtn" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-trash"></i> 刪除會議
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h6 class="mb-3">參與者</h6>
+                        <ul id="participantsList" class="list-group mb-4"></ul>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0">逐字稿 (可事先微調逐字稿，再建立會議紀錄會更準確)</h6>
+                            <button id="editTranscriptBtn" class="btn btn-outline-primary btn-sm">
+                                <i class="bi bi-pencil"></i> 編輯逐字稿
+                            </button>
+                        </div>
+                        <div id="transcriptContent" class="border rounded p-3 mb-4"></div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h6 class="mb-0">會議摘要</h6>
+                            <div>
+                                <button id="editSummaryBtn" class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-pencil"></i> 編輯會議摘要
+                                </button>
+                                <button id="exportPdfBtn" class="btn btn-outline-success btn-sm me-2">
+                                    <i class="bi bi-file-pdf"></i> 匯出 PDF
+                                </button>
+                            </div>
+                        </div>
+                        <div id="summaryContent" class="border rounded p-3"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0">錄音控制</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex gap-2 mb-3">
+                                    <button id="startRecordingBtn" class="btn btn-primary">
+                                        <i class="bi bi-mic-fill"></i> 開始錄音
+                                    </button>
+                                    <button id="uploadAudioBtn" class="btn btn-outline-primary">
+                                        <i class="bi bi-upload"></i> 上傳會議音訊檔
+                                    </button>
+                                </div>
+                                <input type="file" id="audioFileInput" accept=".wav,.mp3,.m4a,.ogg,audio/wav,audio/mp3,audio/m4a,audio/ogg" style="display: none;">
+                                <div id="recordingPanel" class="d-none">
+                                    <canvas id="recordingVisualizer" class="w-100 mb-3"></canvas>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="recording-time">00:00</span>
+                                        <button id="stopRecordingBtn" class="btn btn-danger">
+                                            <i class="bi bi-check-circle"></i> 完成＆儲存錄音
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="audioPlayer" class="d-none">
+                                    <canvas id="audioWaveform" class="w-100 mb-3"></canvas>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span id="currentTime">00:00</span>
+                                        <span id="totalTime">00:00</span>
+                                    </div>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <button id="playAudioBtn" class="btn btn-primary">
+                                            <i class="bi bi-play-circle"></i>
+                                        </button>
+                                        <button id="downloadAudioBtn" class="btn btn-outline-primary">
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 編輯會議模態框 -->
+    <div class="modal fade" id="editMeetingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">編輯會議</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editMeetingForm">
+                        <div class="mb-3">
+                            <label for="editMeetingTitle" class="form-label">會議標題</label>
+                            <input type="text" class="form-control" id="editMeetingTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">參與者</label>
+                            <div id="editParticipantsList">
+                                <!-- 參與者輸入框會在這裡動態生成 -->
+                            </div>
+                            <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="addEditParticipant">
+                                <i class="bi bi-plus-circle"></i> 新增參與者
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="saveEditMeeting">儲存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 錄音確認 Modal -->
+    <div class="modal fade" id="recordingConfirmModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">確認麥克風</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-4">
+                        <canvas id="audioVisualizer" width="200" height="200"></canvas>
+                        <div class="mt-3">
+                            <div class="progress mb-2" style="height: 20px;">
+                                <div id="volumeBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                            </div>
+                            <div id="volumeNumber" class="h5 mb-2">0</div>
+                            <div id="volumeStatus" class="text-muted">請說話測試麥克風</div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center gap-3">
+                        <button id="testPlayBtn" class="btn btn-outline-primary" disabled>
+                            <i class="bi bi-play-circle"></i> 測試錄音
+                        </button>
+                        <button id="confirmRecordingBtn" class="btn btn-primary" disabled>
+                            <i class="bi bi-check-circle"></i> 開始錄音
+                        </button>
+                    </div>
+                    <audio id="testAudioPlayer" class="d-none"></audio>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 編輯逐字稿 Modal -->
+    <div class="modal fade" id="editTranscriptModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">編輯逐字稿</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="editTranscriptContent" class="form-control" rows="20"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="saveTranscriptBtn">儲存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 編輯會議摘要 Modal -->
+    <div class="modal fade" id="editSummaryModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">編輯會議摘要</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="editSummaryContent" class="form-control" rows="20"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="saveSummaryBtn">儲存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dexie@3.2.4/dist/dexie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/record.js"></script>
+    <script src="js/meeting.js"></script>
+</body>
+</html> 

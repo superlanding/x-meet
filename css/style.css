@@ -1,0 +1,290 @@
+:root {
+    /* Airbnb 風格的主色調 */
+    --primary-color: #FF385C;
+    --primary-light: #FFE8EC;
+    --primary-dark: #E61E4D;
+    
+    /* Pinterest 風格的輔助色 */
+    --secondary-color: #2D3436;
+    --secondary-light: #636E72;
+    --secondary-lighter: #B2BEC3;
+    
+    /* 背景和文字顏色 */
+    --background-color: #F8F9FA;
+    --card-background: #FFFFFF;
+    --text-color: #2D3436;
+    --text-light: #636E72;
+    
+    /* 邊框和陰影 */
+    --border-color: #E9ECEF;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    line-height: 1.6;
+}
+
+.navbar {
+    background-color: var(--card-background) !important;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    padding: 0.5rem 1.25rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-light);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.card {
+    background-color: var(--card-background);
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.card-title {
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.list-group-item {
+    background-color: var(--card-background);
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.25rem;
+    transition: all 0.2s ease;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+.list-group-item:hover {
+    background-color: var(--background-color);
+}
+
+.form-control {
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-label {
+    color: var(--text-color);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.modal-content {
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 4px 16px var(--shadow-color);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1.5rem;
+}
+
+/* 錄音按鈕樣式 */
+.recording-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.recording-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.recording-btn.recording {
+    animation: pulse 1.5s infinite;
+    background-color: var(--primary-dark);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px var(--shadow-color);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 4px 16px var(--shadow-color);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 2px 8px var(--shadow-color);
+    }
+}
+
+/* 響應式調整 */
+@media (max-width: 768px) {
+    .card {
+        border-radius: 12px;
+    }
+    
+    .modal-content {
+        border-radius: 12px;
+    }
+    
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+}
+
+/* 錄音面板樣式 */
+.recording-panel {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    width: 300px;
+}
+
+.recording-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.recording-visualizer {
+    width: 100px;
+    height: 100px;
+}
+
+.recording-controls {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recording-time {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #6c5ce7;
+}
+
+.recording-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #dc3545;
+}
+
+/* 音頻播放器樣式 */
+.audio-player {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+    width: 400px;
+}
+
+.audio-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.audio-waveform {
+    width: 100%;
+    height: 60px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.audio-time {
+    margin-left: auto;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* 動畫效果 */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.recording-status i {
+    animation: pulse 1s infinite;
+} 

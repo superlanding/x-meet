@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會議紀錄系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-calendar-check text-primary"></i>
+                會議紀錄系統
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">
+                            <i class="bi bi-gear"></i> 設定
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>會議列表</h1>
+            <button id="newMeetingBtn" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> 新增會議
+            </button>
+        </div>
+
+        <div id="meetingsList" class="list-group">
+            <!-- 會議列表將在這裡動態生成 -->
+        </div>
+
+        <div id="noMeetingsMessage" class="text-center py-5" style="display: none;">
+            <i class="bi bi-calendar-x display-1 text-muted"></i>
+            <h3 class="mt-3">目前沒有會議</h3>
+            <p class="text-muted">點擊上方的「新增會議」按鈕來創建您的第一個會議</p>
+        </div>
+    </div>
+
+    <!-- 新增會議的 Modal -->
+    <div class="modal fade" id="newMeetingModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">新增會議</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="newMeetingForm">
+                        <div class="mb-3">
+                            <label for="meetingTitle" class="form-label">會議標題</label>
+                            <input type="text" class="form-control" id="meetingTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">參與者</label>
+                            <div id="participantsList">
+                                <div class="input-group mb-2">
+                                    <input type="email" class="form-control" placeholder="輸入電子郵件">
+                                    <button type="button" class="btn btn-outline-danger remove-participant">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="addParticipant">
+                                <i class="bi bi-plus-circle"></i> 新增參與者
+                            </button>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">會議內容</label>
+                            <textarea class="form-control" id="meetingContent" rows="5"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="saveMeeting">儲存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dexie@3.2.4/dist/dexie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 

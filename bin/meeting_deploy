@@ -19,6 +19,10 @@ OS=$(uname -s)
 echo "正在打包 X-Meet v${VERSION}..."
 echo "作業系統: ${OS}"
 
+# 清理舊的打包文件
+echo "清理舊的打包文件..."
+rm -rf dist/
+
 # 執行打包
 npm run build
 
@@ -31,6 +35,9 @@ if [ $? -eq 0 ]; then
     case $OS in
         "Darwin")
             echo "macOS 安裝檔: dist/X-Meet-${VERSION}.dmg"
+            # 檢查 DMG 檔案完整性
+            echo "檢查 DMG 檔案完整性..."
+            hdiutil verify "dist/X-Meet-${VERSION}.dmg"
             ;;
         "Linux")
             echo "Linux 安裝檔: dist/X-Meet-${VERSION}.AppImage"

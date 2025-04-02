@@ -449,3 +449,14 @@ ADD 逐字稿的顯示，我希望可以在塞入 HTML 時
 // 將換行符轉換為 HTML 換行標籤
 const formattedContent = transcript.content.replace(/\n/g, '<br>');
 ```
+
+### FIX: Mac 編譯後檔案損毀
+
+```
+ASK: dmg 檔案產出之後，好像其他人會出現錯誤訊息「檔案損會」可能是什麼原因
+ASK: 那幫我檢查 meeting_deploy 檔案看看什麼問題
+
+ASK: 搭配 package.json 一起看看
+
+FIX: 搭配 package.json main.js bin/meeting_deploy 幫我看看怎麼修正「Mac 檔案損毀」的問題
+```

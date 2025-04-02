@@ -41,6 +41,7 @@ X-Meet 是一個基於 Electron 開發的會議紀錄系統，能夠自動錄音
 3. 啟動 X-Meet 設定中輸入 API Key
 
 ### AssemblyAI 設定
+
 1. 前往 [AssemblyAI](https://www.assemblyai.com) 註冊帳號 (可使用免費額度)
 2. 在 Dashboard 中取得 API Key
 3. 啟動 X-Meet 設定中輸入 API Key

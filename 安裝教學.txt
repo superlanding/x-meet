@@ -1,10 +1,10 @@
 安裝教學:
 
-請到網址: 
-https://drive.google.com/drive/folders/1tzMLAE82c-S5xp3XYa1w8VGN--a2CjfM?dmr=1&ec=wgc-drive-globalnav-goto
+  請到網址: 
+  https://drive.google.com/drive/folders/1tzMLAE82c-S5xp3XYa1w8VGN--a2CjfM?dmr=1&ec=wgc-drive-globalnav-goto
 
-Windows 請下載: *.exe 檔案
-Mac 請下載: *.dmg 檔案，拖曳到 Applications 資料夾再開啟
+  Windows 請下載: *.exe 檔案
+  Mac 請下載: *.dmg 檔案，拖曳到 Applications 資料夾再開啟
 
 Gemini API Key 取得 & 設定 (會議紀錄 AI)
 
@@ -19,12 +19,13 @@ AssemblyAI 取得 & 設定 (聲音辨識 AI)
 3. 啟動 X-Meet 設定中輸入 API Key
 
 
-```
-ASK: dmg 檔案產出之後，好像其他人會出現錯誤訊息「檔案損會」可能是什麼原因
-ASK: 那幫我檢查 meeting_deploy 檔案看看什麼問題
+Mac 檔案損毀的修正方式：
 
-ASK: 搭配 package.json 一起看看
+  Mac 安全機制設計，不允許沒有經過 code sign (從 Apple 花錢付費拿到的 APP 認證)
+  因為這是免費軟體，沒有做 code sign 所以需要以下步驟，授權這個 APP 給 Mac 知道是安全的
 
-FIX: 搭配 package.json main.js bin/meeting_deploy 幫我看看怎麼修正「Mac 檔案損毀」的問題
-```
+  1. 把 dmg 檔案拖曳到 Applications 資料夾
+  2. 打開 spotlight 搜尋 “終端機”
+  3. 輸入以下指令: xattr -d com.apple.quarantine /Applications/X-Meet.app
+  4. 打開 x-meet APP (即可使用)
 

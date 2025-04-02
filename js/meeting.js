@@ -125,6 +125,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadMeetingDetails() {
     try {
         const meeting = await Database.getMeeting(CONFIG.currentMeetingId);
+        let formattedContent = "";
+
         if (!meeting) {
             window.location.href = 'index.html';
             return;
@@ -147,20 +149,23 @@ async function loadMeetingDetails() {
         const transcript = await Database.getMeetingTranscript(CONFIG.currentMeetingId);
 
         if (transcript?.content) {
-            let formattedContent = transcript.content
-            // 先將換行符轉換為特殊標記
-            .replace(/\n/g, '{{BR}}')
+            formattedContent = transcript.content
+        } else {
+            formattedContent = "無逐字稿"
+        }
+
+        // 先將換行符轉換為特殊標記
+        formattedContent = formattedContent.replace(/\n/g, '{{BR}}')
             // 將時間格式轉換為可點擊的連結
             .replace(/(\d{2}:\d{2})/g, '<a href="#" class="text-primary text-decoration-none" onclick="toTime(\'$1\'); return false;">$1</a>')
             // 將特殊標記轉換回換行標籤
             .replace(/{{BR}}/g, '<br>');
-            document.getElementById('transcriptContent').innerHTML = formattedContent;
-        } else {
-            document.getElementById('transcriptContent').innerHTML = '無逐字稿';
-        }
+
+        document.getElementById('transcriptContent').innerHTML = formattedContent;
 
         // 載入摘要
         const summary = await Database.getMeetingSummary(CONFIG.currentMeetingId);
+
         if (summary?.content) {
             let c = marked.parse(summary.content).replace(/(\d{2}:\d{2})/g, '<a href="#" class="text-primary text-decoration-none" onclick="toTime(\'$1\'); return false;">$1</a>');
             document.getElementById('summaryContent').innerHTML = c;

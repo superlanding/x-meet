@@ -627,7 +627,7 @@ function formatTranscript(words) {
     return [
         "【這裡是講者對應的人員】\n",
         speakers.join("代表 ______ \n"),
-        "【名詞定義＆修正】\n\n\n\n",
+        "【名詞定義＆修正】\n",
         "\n【以下是會議逐字稿】\n",
         formattedText
     ].join("\n")

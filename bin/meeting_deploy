@@ -34,10 +34,10 @@ if [ $? -eq 0 ]; then
     # 根據作業系統顯示具體的輸出檔案
     case $OS in
         "Darwin")
-            echo "macOS 安裝檔: dist/X-Meet-${VERSION}.dmg"
+            echo "macOS 安裝檔: dist/X-Meet-${VERSION}-arm64.dmg"
             # 檢查 DMG 檔案完整性
             echo "檢查 DMG 檔案完整性..."
-            hdiutil verify "dist/X-Meet-${VERSION}.dmg"
+            hdiutil verify "dist/X-Meet-${VERSION}-arm64.dmg"
             ;;
         "Linux")
             echo "Linux 安裝檔: dist/X-Meet-${VERSION}.AppImage"

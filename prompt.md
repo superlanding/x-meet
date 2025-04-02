@@ -460,3 +460,10 @@ ASK: 搭配 package.json 一起看看
 
 FIX: 搭配 package.json main.js bin/meeting_deploy 幫我看看怎麼修正「Mac 檔案損毀」的問題
 ```
+
+```
+這句話，好像找不到檔案
+`hdiutil verify "dist/X-Meet-${VERSION}.dmg"`
+檔案應該是: hdiutil verify dist/X-Meet-1.0.0-arm64.dmg
+而不是 dist/X-Meet-1.0.0.dmg
+```

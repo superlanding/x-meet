@@ -24,28 +24,15 @@ X-Meet 是一個基於 Electron 開發的會議紀錄系統，能夠自動錄音
 
 - https://drive.google.com/drive/folders/1tzMLAE82c-S5xp3XYa1w8VGN--a2CjfM?usp=drive_link 
 - 下載 `dist/X-Meet-Setup-1.0.0.exe`
-- 選擇安裝目錄
-- 完成安裝後，可以從開始選單或桌面捷徑啟動
+- 下載 `安裝教學.txt`
+- 依照指示安裝
 
 ### macOS
 
 - https://drive.google.com/drive/folders/1tzMLAE82c-S5xp3XYa1w8VGN--a2CjfM?usp=drive_link 
 - 下載 `dist/X-Meet-1.0.0.dmg`
-- 請詳見安裝教學
-
-## 首次設定
-
-### Gemini API 設定
-
-1. 前往 [Gemini AI](https://ai.google.dev/) 註冊帳號 (可使用免費額度)
-2. 在個人設定中取得 API Key
-3. 啟動 X-Meet 設定中輸入 API Key
-
-### AssemblyAI 設定
-
-1. 前往 [AssemblyAI](https://www.assemblyai.com) 註冊帳號 (可使用免費額度)
-2. 在 Dashboard 中取得 API Key
-3. 啟動 X-Meet 設定中輸入 API Key
+- 下載 `安裝教學.txt`
+- 依照指示安裝
 
 ## 開發環境
 

@@ -467,3 +467,9 @@ FIX: 搭配 package.json main.js bin/meeting_deploy 幫我看看怎麼修正「M
 檔案應該是: hdiutil verify dist/X-Meet-1.0.0-arm64.dmg
 而不是 dist/X-Meet-1.0.0.dmg
 ```
+
+### 修正一些問題:
+
+```
+我希望是有瀏覽器內建搜尋畫面的功能，cmd + f 可以打開搜尋框
+```

@@ -12,6 +12,7 @@ const participantsList = document.getElementById('participantsList');
 const addParticipantBtn = document.getElementById('addParticipant');
 const saveMeetingBtn = document.getElementById('saveMeeting');
 const meetingList = document.getElementById('meetingList');
+const importBackupBtn = document.getElementById('importBackupBtn');
 
 // 事件監聽器
 document.addEventListener('DOMContentLoaded', async () => {
@@ -55,6 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 newMeetingBtn.addEventListener('click', showNewMeetingModal);
 addParticipantBtn.addEventListener('click', addParticipantInput);
+document.getElementById('importBackupBtn').addEventListener('click', importBackup);
 
 // 初始化應用
 async function initializeApp() {
@@ -275,4 +277,84 @@ document.addEventListener('click', (e) => {
     if (e.target.closest('.remove-participant')) {
         e.target.closest('.input-group').remove();
     }
-}); 
+});
+
+async function importBackup() {
+    try {
+        // 創建檔案輸入元素
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.zip';
+        
+        input.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            try {
+                // 讀取 ZIP 檔案
+                const zip = new JSZip();
+                const zipContent = await zip.loadAsync(file);
+
+                // 檢查必要的檔案是否存在
+                if (!zipContent.files['meeting.json']) {
+                    throw new Error('無效的備份檔案：缺少 meeting.json');
+                }
+
+                // 讀取 meeting.json
+                const jsonContent = await zipContent.files['meeting.json'].async('string');
+                const meetingData = JSON.parse(jsonContent);
+
+                // 創建新會議
+                const meetingId = await Database.createMeeting({
+                    title: meetingData.title,
+                    createdAt: meetingData.createdAt || new Date(),
+                    updatedAt: meetingData.updatedAt || new Date()
+                });
+
+                // 添加參與者
+                for (const name of meetingData.participants) {
+                    await Database.addParticipant({
+                        meetingId,
+                        name
+                    });
+                }
+
+                // 保存逐字稿
+                if (meetingData.transcript) {
+                    await Database.saveTranscript({
+                        meetingId,
+                        content: meetingData.transcript
+                    });
+                }
+
+                // 保存會議摘要
+                if (meetingData.summary) {
+                    await Database.saveMeetingSummary({
+                        meetingId,
+                        content: meetingData.summary
+                    });
+                }
+
+                // 處理音訊檔案
+                if (zipContent.files['meeting_audio.wav']) {
+                    const audioBlob = await zipContent.files['meeting_audio.wav'].async('blob');
+                    await Database.saveRecording(meetingId, audioBlob);
+                }
+
+                // 重新載入會議列表
+                await loadMeetings();
+                
+                // 跳轉到會議詳情頁面
+                window.location.href = `meeting.html?id=${meetingId}`;
+            } catch (error) {
+                console.error('匯入備份失敗:', error);
+                alert('匯入備份失敗：' + error.message);
+            }
+        };
+
+        input.click();
+    } catch (error) {
+        console.error('匯入備份失敗:', error);
+        alert('匯入備份失敗，請稍後再試');
+    }
+} 

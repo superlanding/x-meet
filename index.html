@@ -6,6 +6,7 @@
     <title>會議紀錄系統</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -33,9 +34,14 @@
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1>會議列表</h1>
-            <button id="newMeetingBtn" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> 新增會議
-            </button>
+            <div class="d-flex gap-2">
+                <button id="importBackupBtn" class="btn btn-outline-primary">
+                    <i class="bi bi-upload"></i> 匯入備份
+                </button>
+                <button id="newMeetingBtn" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> 新增會議
+                </button>
+            </div>
         </div>
 
         <div id="meetingsList" class="list-group">

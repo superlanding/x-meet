@@ -476,3 +476,28 @@ FIX: 搭配 package.json main.js bin/meeting_deploy 幫我看看怎麼修正「M
 1. 若會議較長，建議使用其他錄音軟體，避免遇到 APP 故障
 2. 建議會議錄音開頭，每個人可以發言說：Hi 我是 OOOO，有利於講者辨識
 ```
+
+### 匯出共享功能
+
+```
+幫我在 meeting.html 編輯、與刪除按鈕中間多一個「匯出備份」功能，需求如下:
+
+1. 匯出 zip 檔案格式
+2. 內容包含 ( meeting.json, 聲音檔案 )
+3. meeting.json 包含 title, 與會者, 逐字稿, 會議紀錄
+```
+
+```
+好，幫我在 index.html 新增會議，旁邊多一個按鈕「匯入備份」需求如下:
+
+1. 把 zip 檔案解壓縮
+2. 拿到聲音檔案 & json 檔案
+3. 匯入 DB 後
+4. 重新導入到那一個頁面
+```
+
+```
+FIX: 
+Failed to execute 'bound' on 'IDBKeyRange': The parameter is not a valid key.
+DataError: Failed to execute 'bound' on 'IDBKeyRange': The parameter is not a valid key
+```

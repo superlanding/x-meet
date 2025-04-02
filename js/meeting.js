@@ -119,6 +119,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert('匯出 PDF 失敗，請稍後再試');
         }
     });
+
+    document.getElementById('exportBackupBtn').addEventListener('click', exportBackup);
 });
 
 // 載入會議詳細資料
@@ -378,5 +380,55 @@ async function selectMeeting(meetingId) {
     } catch (error) {
         console.error('選擇會議失敗:', error);
         alert('選擇會議失敗，請稍後再試');
+    }
+}
+
+async function exportBackup() {
+    try {
+        // 從資料庫獲取完整的會議資料
+        const meeting = await Database.getMeeting(CONFIG.currentMeetingId);
+        const participants = await Database.getMeetingParticipants(CONFIG.currentMeetingId);
+        const transcript = await Database.getMeetingTranscript(CONFIG.currentMeetingId);
+        const summary = await Database.getMeetingSummary(CONFIG.currentMeetingId);
+        const recording = await Database.getRecording(CONFIG.currentMeetingId);
+
+        // 準備會議資料
+        const meetingData = {
+            title: meeting.title,
+            participants: participants.map(p => p.name),
+            transcript: transcript?.content || '',
+            summary: summary?.content || '',
+            createdAt: meeting.createdAt,
+            updatedAt: meeting.updatedAt
+        };
+
+        // 創建 JSZip 實例
+        const zip = new JSZip();
+
+        // 添加 meeting.json
+        zip.file('meeting.json', JSON.stringify(meetingData, null, 2));
+
+        // 如果有音訊檔案，添加到 zip
+        if (recording && recording.audio) {
+            zip.file('meeting_audio.wav', recording.audio);
+        }
+
+        // 生成 zip 檔案
+        const content = await zip.generateAsync({type: 'blob'});
+
+        // 創建下載連結
+        const url = window.URL.createObjectURL(content);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `會議_${meeting.title.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().split('T')[0]}.zip`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        showToast('備份匯出成功！', 'success');
+    } catch (error) {
+        console.error('匯出備份失敗:', error);
+        showToast('匯出備份失敗，請稍後再試', 'error');
     }
 } 

@@ -27,3 +27,7 @@ const CONFIG = {
     // 共享變量
     currentMeetingId: null
 }; 
+
+window.addEventListener('error', (e) => {
+    console.error('未捕獲的錯誤:', e.message);
+});

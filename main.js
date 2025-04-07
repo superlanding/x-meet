@@ -38,7 +38,7 @@ function createWindow() {
         y: windowY,
         icon: path.join(__dirname, 'assets', 'logo.png'), // 設置窗口圖標
         webPreferences: {
-            nodeIntegration: true,
+            nodeIntegration: false,
             contextIsolation: false,
             webSecurity: false // 允許跨域請求
         }
@@ -63,6 +63,8 @@ function createWindow() {
             }
         });
     });
+
+    
 
     // // 當視窗關閉時
     // mainWindow.on('closed', () => {

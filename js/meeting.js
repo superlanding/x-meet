@@ -128,7 +128,6 @@ async function loadMeetingDetails() {
     try {
         const meeting = await Database.getMeeting(CONFIG.currentMeetingId);
         let formattedContent = "";
-
         if (!meeting) {
             window.location.href = 'index.html';
             return;
@@ -327,8 +326,9 @@ saveEditMeetingBtn.addEventListener('click', async () => {
                 name
             });
         }
-
+        
         editMeetingModal.hide();
+
         await loadMeetingDetails();
     } catch (error) {
         console.error('更新會議失敗:', error);

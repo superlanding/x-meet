@@ -288,3 +288,68 @@ body {
 .recording-status i {
     animation: pulse 1s infinite;
 } 
+
+#summaryContent h1 {
+    font-size: 28px;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+#summaryContent h2 {
+    font-size: 24px;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+#summaryContent h3 {
+    font-size: 22px;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+#summaryContent h4 {
+    font-size: 20px;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+#summaryContent h5 {
+    font-size: 18px;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+#summaryContent h6 {
+    font-size: 16px;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+#summaryContent p {
+    margin-bottom: 1rem;
+}
+#summaryContent ul, #summaryContent ol {
+    margin-bottom: 1rem;
+    padding-left: 2rem;
+}
+#summaryContent li {
+    margin-bottom: 0.5rem;
+}
+#summaryContent code {
+    background-color: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+}
+#summaryContent pre {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    overflow-x: auto;
+}
+#summaryContent blockquote {
+    border-left: 4px solid #dee2e6;
+    padding-left: 1rem;
+    margin-left: 0;
+    color: #6c757d;
+}

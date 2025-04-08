@@ -101,14 +101,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // 創建要匯出的內容
             const content = document.createElement('div');
-            content.innerHTML = marked.parse(summary.content);
+            const html = []
+            html.push("<div id='summaryContent'>", marked.parse(summary.content), '</div>');
+            html.push('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">');
+            html.push('<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">');
+            html.push('<link href="css/style.css" rel="stylesheet">');
+            content.innerHTML = html.join("\n");
 
             // 配置 PDF 選項
             const opt = {
-                margin: 1,
-                filename: `${meeting.title}_會議記錄.pdf`,
-                image: { type: 'jpeg', quality: 0.9 },
-                html2canvas: { scale: 3 },
+                margin: 0.7,
+                filename: `會議記錄_${meeting.title}.pdf`,
+                image: { type: 'jpeg', quality: 0.95 },
+                html2canvas: { scale: 2, dpi: 192 },
                 jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
@@ -173,76 +178,6 @@ async function loadMeetingDetails() {
         } else {
             document.getElementById('summaryContent').innerHTML = '無摘要';
         }
-
-        // 添加 markdown 樣式
-        const style = document.createElement('style');
-        style.textContent = `
-            #summaryContent h1 {
-                font-size: 28px;
-                margin-top: 1.5rem;
-                margin-bottom: 0.75rem;
-                font-weight: 600;
-            }
-            #summaryContent h2 {
-                font-size: 24px;
-                margin-top: 1.25rem;
-                margin-bottom: 0.75rem;
-                font-weight: 600;
-            }
-            #summaryContent h3 {
-                font-size: 22px;
-                margin-top: 1rem;
-                margin-bottom: 0.5rem;
-                font-weight: 600;
-            }
-            #summaryContent h4 {
-                font-size: 20px;
-                margin-top: 1rem;
-                margin-bottom: 0.5rem;
-                font-weight: 600;
-            }
-            #summaryContent h5 {
-                font-size: 18px;
-                margin-top: 0.75rem;
-                margin-bottom: 0.5rem;
-                font-weight: 600;
-            }
-            #summaryContent h6 {
-                font-size: 16px;
-                margin-top: 0.75rem;
-                margin-bottom: 0.5rem;
-                font-weight: 600;
-            }
-            #summaryContent p {
-                margin-bottom: 1rem;
-            }
-            #summaryContent ul, #summaryContent ol {
-                margin-bottom: 1rem;
-                padding-left: 2rem;
-            }
-            #summaryContent li {
-                margin-bottom: 0.5rem;
-            }
-            #summaryContent code {
-                background-color: #f8f9fa;
-                padding: 0.2rem 0.4rem;
-                border-radius: 0.25rem;
-                font-family: monospace;
-            }
-            #summaryContent pre {
-                background-color: #f8f9fa;
-                padding: 1rem;
-                border-radius: 0.375rem;
-                overflow-x: auto;
-            }
-            #summaryContent blockquote {
-                border-left: 4px solid #dee2e6;
-                padding-left: 1rem;
-                margin-left: 0;
-                color: #6c757d;
-            }
-        `;
-        document.head.appendChild(style);
 
         // 載入音頻文件
         const recording = await Database.getRecording(CONFIG.currentMeetingId);

@@ -1,113 +1,113 @@
 {
-  "name": "x-meet",
-  "version": "2.0.1",
-  "description": "X-Meet 會議紀錄系統",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "build": "electron-builder --mac --win",
-    "build:mac": "electron-builder --mac",
-    "build:win": "electron-builder --win",
-    "publish": "electron-builder --mac --win --publish always"
-  },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "electron": "^28.1.0",
-    "electron-builder": "^26.0.12",
-    "electron-updater": "^6.6.2"
-  },
-  "build": {
-    "appId": "com.superlanding.x-meet",
-    "productName": "X-Meet",
-    "directories": {
-      "output": "dist"
+    "name": "x-meet",
+    "version": "2.0.2",
+    "description": "X-Meet 會議紀錄系統",
+    "main": "main.js",
+    "scripts":
+    {
+        "start": "electron .",
+        "build": "electron-builder --mac --win",
+        "build:mac": "electron-builder --mac",
+        "build:win": "electron-builder --win",
+        "publish": "electron-builder --mac --win --publish always"
     },
-    "files": [
-      "**/*",
-      "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-      "!node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-      "!node_modules/*.d.ts",
-      "!node_modules/.bin",
-      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
-      "!.editorconfig",
-      "!**/._*",
-      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
-      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
-      "!**/{appveyor.yml,.travis.yml,circle.yml}",
-      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
-    ],
-    "mac": {
-      "category": "public.app-category.productivity",
-      "target": [
-        "dmg"
-      ],
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false,
-      "entitlements": "build/entitlements.mac.plist",
-      "entitlementsInherit": "build/entitlements.mac.plist",
-      "signIgnore": [
-        "node_modules"
-      ],
-      "icon": "assets/logo.png"
+    "author": "",
+    "license": "ISC",
+    "devDependencies":
+    {
+        "electron": "^28.1.0",
+        "electron-builder": "^26.0.12",
+        "electron-updater": "^6.6.2"
     },
-    "dmg": {
-      "sign": false,
-      "contents": [
+    "build":
+    {
+        "appId": "com.superlanding.x-meet",
+        "productName": "X-Meet",
+        "directories":
         {
-          "x": 130,
-          "y": 220
+            "output": "dist"
         },
+        "files":
+        [
+            "**/*",
+            "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+            "!node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+            "!node_modules/*.d.ts",
+            "!node_modules/.bin",
+            "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+            "!.editorconfig",
+            "!**/._*",
+            "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+            "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+            "!**/{appveyor.yml,.travis.yml,circle.yml}",
+            "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
+        ],
+        "mac":
         {
-          "x": 410,
-          "y": 220,
-          "type": "link",
-          "path": "/Applications"
-        }
-      ]
-    },
-    "win": {
-      "target": [
+            "category": "public.app-category.productivity",
+            "target":
+            [
+                "dmg"
+            ],
+            "hardenedRuntime": true,
+            "gatekeeperAssess": false,
+            "entitlements": "build/entitlements.mac.plist",
+            "entitlementsInherit": "build/entitlements.mac.plist",
+            "signIgnore":
+            [
+                "node_modules"
+            ],
+            "icon": "assets/logo.png"
+        },
+        "dmg":
         {
-          "target": "portable",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "icon": "assets/icon.ico",
-      "artifactName": "${productName}-Setup-${version}.${ext}",
-      "verifyUpdateCodeSignature": false
+            "sign": false,
+            "contents":
+            [
+                {
+                    "x": 130,
+                    "y": 220
+                },
+                {
+                    "x": 410,
+                    "y": 220,
+                    "type": "link",
+                    "path": "/Applications"
+                }
+            ]
+        },
+        "win":
+        {
+            "target":
+            [
+                {
+                    "target": "nsis",
+                    "arch":
+                    [
+                        "x64"
+                    ]
+                }
+            ],
+            "icon": "assets/icon.ico",
+            "artifactName": "${productName}-Setup-${version}.${ext}",
+            "verifyUpdateCodeSignature": false
+        },
+        "publish":
+        [
+            {
+                "provider": "s3",
+                "bucket": "x-meet",
+                "region": "ap-northeast-1",
+                "path": "/",
+                "acl": "public-read",
+                "channel": "latest",
+                "publishAutoUpdate": true
+            }
+        ]
     },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "X-Meet"
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "category": "Office"
-    },
-    "publish": [
-      {
-        "provider": "s3",
-        "bucket": "x-meet",
-        "region": "ap-northeast-1",
-        "path": "/",
-        "acl": "public-read",
-        "endpoint": "https://s3.ap-northeast-1.amazonaws.com",
-        "channel": "latest",
-        "publishAutoUpdate": true
-      }
-    ]
-  },
-  "dependencies": {
-    "aws-sdk": "^2.1692.0",
-    "electron-log": "^5.3.3"
-  }
+    "dependencies":
+    {
+        "aws-sdk": "^2.1692.0",
+        "electron-log": "^5.3.3"
+    }
 }

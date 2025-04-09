@@ -6,11 +6,11 @@ const { screen } = require('electron');
 // const log = require('electron-log');
 
 // 配置日誌
-log.transports.file.level = 'debug';
-autoUpdater.logger = log;
-autoUpdater.autoDownload = true;
-autoUpdater.autoInstallOnAppQuit = true;
-autoUpdater.channel = 'latest';
+// log.transports.file.level = 'debug';
+// autoUpdater.logger = log;
+// autoUpdater.autoDownload = true;
+// autoUpdater.autoInstallOnAppQuit = true;
+// autoUpdater.channel = 'latest';
 
 // 設置應用程序圖標（僅在 macOS 中有效）
 if (process.platform === 'darwin') {

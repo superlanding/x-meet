@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# 確保在專案根目錄
+cd "$(dirname "$0")/.."
+
+# 檢查 node_modules 是否存在
+if [ ! -d "node_modules" ]; then
+    echo "正在安裝依賴..."
+    npm install
+fi
+
+# 獲取當前版本
+VERSION=$(node -p "require('./package.json').version")
+
+# 獲取作業系統
+OS=$(uname -s)
+
+# 顯示打包資訊
+echo "正在打包 X-Meet v${VERSION}..."
+echo "作業系統: ${OS}"
+
+# 清理舊的打包文件
+echo "清理舊的打包文件..."
+rm -rf dist/
+
+# 執行打包
+npm run publish
+
+open dist/
+open https://drive.google.com/drive/folders/1tzMLAE82c-S5xp3XYa1w8VGN--a2CjfM

@@ -11,4 +11,4 @@ fi
 
 # 啟動開發環境
 echo "正在啟動開發環境..."
-npm start 
+APP_ENV=development npm start

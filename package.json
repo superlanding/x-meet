@@ -1,10 +1,9 @@
 {
     "name": "x-meet",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "description": "X-Meet 會議紀錄系統",
     "main": "main.js",
-    "scripts":
-    {
+    "scripts": {
         "start": "electron .",
         "build": "electron-builder --mac --win",
         "build:mac": "electron-builder --mac",
@@ -13,22 +12,18 @@
     },
     "author": "",
     "license": "ISC",
-    "devDependencies":
-    {
+    "devDependencies": {
         "electron": "^28.1.0",
         "electron-builder": "^26.0.12",
         "electron-updater": "^6.6.2"
     },
-    "build":
-    {
+    "build": {
         "appId": "com.superlanding.x-meet",
         "productName": "X-Meet",
-        "directories":
-        {
+        "directories": {
             "output": "dist"
         },
-        "files":
-        [
+        "files": [
             "**/*",
             "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
             "!node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
@@ -42,28 +37,23 @@
             "!**/{appveyor.yml,.travis.yml,circle.yml}",
             "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
         ],
-        "mac":
-        {
+        "mac": {
             "category": "public.app-category.productivity",
-            "target":
-            [
+            "target": [
                 "dmg"
             ],
             "hardenedRuntime": true,
             "gatekeeperAssess": false,
             "entitlements": "build/entitlements.mac.plist",
             "entitlementsInherit": "build/entitlements.mac.plist",
-            "signIgnore":
-            [
+            "signIgnore": [
                 "node_modules"
             ],
             "icon": "assets/logo.png"
         },
-        "dmg":
-        {
+        "dmg": {
             "sign": false,
-            "contents":
-            [
+            "contents": [
                 {
                     "x": 130,
                     "y": 220
@@ -76,14 +66,11 @@
                 }
             ]
         },
-        "win":
-        {
-            "target":
-            [
+        "win": {
+            "target": [
                 {
                     "target": "nsis",
-                    "arch":
-                    [
+                    "arch": [
                         "x64"
                     ]
                 }
@@ -92,8 +79,7 @@
             "artifactName": "${productName}-Setup-${version}.${ext}",
             "verifyUpdateCodeSignature": false
         },
-        "publish":
-        [
+        "publish": [
             {
                 "provider": "s3",
                 "bucket": "x-meet",
@@ -105,9 +91,9 @@
             }
         ]
     },
-    "dependencies":
-    {
+    "dependencies": {
         "aws-sdk": "^2.1692.0",
-        "electron-log": "^5.3.3"
+        "electron-log": "^5.3.3",
+        "electron-updater": "^6.1.7"
     }
 }

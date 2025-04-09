@@ -2,10 +2,9 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const isDev = process.env.APP_ENV === 'development';
 const { screen } = require('electron');
-const { autoUpdater } = require('electron-updater');
-const log = require('electron-log');
+// const { autoUpdater } = require('electron-updater');
+// const log = require('electron-log');
 
-// 配置日誌
 // 配置日誌
 log.transports.file.level = 'debug';
 autoUpdater.logger = log;
@@ -73,34 +72,34 @@ app.whenReady().then(() => {
     // 只在生產環境檢查更新
     if (isDev === true) { return; }
     
-    autoUpdater.checkForUpdatesAndNotify();
+    // autoUpdater.checkForUpdatesAndNotify();
     
-    // 監聽更新事件
-    autoUpdater.on('error', (err) => {
-        log.error('更新錯誤:', err);
-    });
+    // // 監聽更新事件
+    // autoUpdater.on('error', (err) => {
+    //     log.error('更新錯誤:', err);
+    // });
     
-    autoUpdater.on('update-available', (info) => {
-        log.info('發現新版本:', info);
-    });
+    // autoUpdater.on('update-available', (info) => {
+    //     log.info('發現新版本:', info);
+    // });
     
-    autoUpdater.on('update-downloaded', (info) => {
-        log.info('更新已下載:', info);
+    // autoUpdater.on('update-downloaded', (info) => {
+    //     log.info('更新已下載:', info);
         
-        // 提示用戶重啟應用
-        if (mainWindow) {
-            mainWindow.webContents.executeJavaScript(`
-                if (confirm('新版本已下載完成，是否立即重啟應用？')) {
-                    require('electron').ipcRenderer.send('restart-app');
-                }
-            `).catch(err => log.error('執行重啟提示失敗:', err));
-        }
-    });
+    //     // 提示用戶重啟應用
+    //     if (mainWindow) {
+    //         mainWindow.webContents.executeJavaScript(`
+    //             if (confirm('新版本已下載完成，是否立即重啟應用？')) {
+    //                 require('electron').ipcRenderer.send('restart-app');
+    //             }
+    //         `).catch(err => log.error('執行重啟提示失敗:', err));
+    //     }
+    // });
     
-    // 監聽重啟請求
-    ipcMain.on('restart-app', () => {
-        autoUpdater.quitAndInstall();
-    });
+    // // 監聽重啟請求
+    // ipcMain.on('restart-app', () => {
+    //     autoUpdater.quitAndInstall();
+    // });
 });
 
 app.on('window-all-closed', () => {

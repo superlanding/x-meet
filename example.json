@@ -1,0 +1,881 @@
+{
+    "id": "48f3fe76-dcc6-46a0-9033-2a9f648ce45a",
+    "language_model": "assemblyai_default",
+    "acoustic_model": "assemblyai_default",
+    "language_code": "zh",
+    "status": "completed",
+    "audio_url": "https://cdn.assemblyai.com/upload/0eec2635-c5fd-4c2c-8a82-325284bb2979",
+    "text": "HELLOHELLO測試HELLOHELLO測試會議記錄系統參與者組織稿會議記錄編輯摘要會出PDF絕效先產生AI組織稿編輯組織稿中的講者代表產生AI會議記錄將會議記錄中行動的地方轉寫在組織稿,說明與訂正區塊,再次產生會議摘要。會議摘要中可以點擊MMSS時間點,確定內容是否正確,完成會議記錄。",
+    "words":
+    [
+        {
+            "text": "HELLOHELLO",
+            "start": 943,
+            "end": 4946,
+            "confidence": 0.9252,
+            "speaker": "A"
+        },
+        {
+            "text": "測試",
+            "start": 4946,
+            "end": 5176,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "HELLOHELLO測試會議",
+            "start": 5176,
+            "end": 8408,
+            "confidence": 0.5598,
+            "speaker": "A"
+        },
+        {
+            "text": "記錄",
+            "start": 8408,
+            "end": 9839,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "系統",
+            "start": 9839,
+            "end": 11270,
+            "confidence": 0.746,
+            "speaker": "A"
+        },
+        {
+            "text": "參與者",
+            "start": 11270,
+            "end": 11531,
+            "confidence": 0.64033335,
+            "speaker": "A"
+        },
+        {
+            "text": "組織",
+            "start": 11531,
+            "end": 11641,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "稿會議記錄",
+            "start": 11641,
+            "end": 11751,
+            "confidence": 0.5682,
+            "speaker": "A"
+        },
+        {
+            "text": "編輯",
+            "start": 11751,
+            "end": 11851,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "摘要",
+            "start": 11851,
+            "end": 11991,
+            "confidence": 0.6995,
+            "speaker": "A"
+        },
+        {
+            "text": "會出",
+            "start": 11991,
+            "end": 12191,
+            "confidence": 0.7,
+            "speaker": "A"
+        },
+        {
+            "text": "PDF",
+            "start": 12191,
+            "end": 12571,
+            "confidence": 0.5883333,
+            "speaker": "A"
+        },
+        {
+            "text": "絕效",
+            "start": 12571,
+            "end": 12731,
+            "confidence": 0.686,
+            "speaker": "A"
+        },
+        {
+            "text": "先產生",
+            "start": 12731,
+            "end": 12871,
+            "confidence": 0.44433334,
+            "speaker": "A"
+        },
+        {
+            "text": "AI",
+            "start": 12871,
+            "end": 12911,
+            "speaker": "A",
+            "confidence": 0.0
+        },
+        {
+            "text": "組織",
+            "start": 12911,
+            "end": 12951,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "稿編輯",
+            "start": 12951,
+            "end": 12992,
+            "confidence": 0.625,
+            "speaker": "A"
+        },
+        {
+            "text": "組織",
+            "start": 12992,
+            "end": 13032,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "稿",
+            "start": 13032,
+            "end": 13072,
+            "confidence": 0.749,
+            "speaker": "A"
+        },
+        {
+            "text": "中",
+            "start": 13072,
+            "end": 13092,
+            "speaker": "A",
+            "confidence": 0.0
+        },
+        {
+            "text": "的",
+            "start": 13092,
+            "end": 13152,
+            "confidence": 0.666,
+            "speaker": "A"
+        },
+        {
+            "text": "講者",
+            "start": 13152,
+            "end": 13572,
+            "confidence": 0.7495,
+            "speaker": "A"
+        },
+        {
+            "text": "代表",
+            "start": 13572,
+            "end": 13992,
+            "confidence": 0.901,
+            "speaker": "A"
+        },
+        {
+            "text": "產生",
+            "start": 13992,
+            "end": 14232,
+            "confidence": 0.7075,
+            "speaker": "A"
+        },
+        {
+            "text": "AI",
+            "start": 14232,
+            "end": 14633,
+            "confidence": 0.4735,
+            "speaker": "A"
+        },
+        {
+            "text": "會議",
+            "start": 14643,
+            "end": 17503,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "記錄",
+            "start": 17503,
+            "end": 20363,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "將會議",
+            "start": 20363,
+            "end": 24652,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "記錄",
+            "start": 24652,
+            "end": 27512,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "中行",
+            "start": 27522,
+            "end": 27843,
+            "confidence": 0.901,
+            "speaker": "A"
+        },
+        {
+            "text": "動",
+            "start": 27843,
+            "end": 27943,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "的",
+            "start": 27943,
+            "end": 28043,
+            "confidence": 0.898,
+            "speaker": "A"
+        },
+        {
+            "text": "地方",
+            "start": 28043,
+            "end": 28703,
+            "confidence": 0.918,
+            "speaker": "A"
+        },
+        {
+            "text": "轉寫",
+            "start": 28703,
+            "end": 28973,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "在",
+            "start": 28973,
+            "end": 29243,
+            "confidence": 0.925,
+            "speaker": "A"
+        },
+        {
+            "text": "組織",
+            "start": 29243,
+            "end": 29513,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "稿,",
+            "start": 29513,
+            "end": 29783,
+            "confidence": 0.7125,
+            "speaker": "A"
+        },
+        {
+            "text": "說明與",
+            "start": 29783,
+            "end": 30204,
+            "confidence": 0.6078,
+            "speaker": "A"
+        },
+        {
+            "text": "訂",
+            "start": 30204,
+            "end": 30554,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "正區塊,",
+            "start": 30554,
+            "end": 31014,
+            "confidence": 0.5519,
+            "speaker": "A"
+        },
+        {
+            "text": "再次",
+            "start": 31014,
+            "end": 31644,
+            "confidence": 0.936,
+            "speaker": "A"
+        },
+        {
+            "text": "產生會議",
+            "start": 31644,
+            "end": 32745,
+            "confidence": 0.616,
+            "speaker": "A"
+        },
+        {
+            "text": "摘要。",
+            "start": 32745,
+            "end": 33845,
+            "confidence": 0.7123,
+            "speaker": "A"
+        },
+        {
+            "text": "會議",
+            "start": 33845,
+            "end": 33925,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "摘要",
+            "start": 33925,
+            "end": 34125,
+            "confidence": 0.885,
+            "speaker": "A"
+        },
+        {
+            "text": "中",
+            "start": 34125,
+            "end": 34326,
+            "confidence": 0.901,
+            "speaker": "A"
+        },
+        {
+            "text": "可以",
+            "start": 34326,
+            "end": 34526,
+            "confidence": 0.83,
+            "speaker": "A"
+        },
+        {
+            "text": "點擊",
+            "start": 34526,
+            "end": 34816,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "MMSS時間點,",
+            "start": 34816,
+            "end": 36987,
+            "confidence": 0.5983,
+            "speaker": "A"
+        },
+        {
+            "text": "確定",
+            "start": 36987,
+            "end": 37227,
+            "confidence": 0.6705,
+            "speaker": "A"
+        },
+        {
+            "text": "內容",
+            "start": 37227,
+            "end": 37347,
+            "confidence": 0.666,
+            "speaker": "A"
+        },
+        {
+            "text": "是否",
+            "start": 37347,
+            "end": 37627,
+            "confidence": 0.893,
+            "speaker": "A"
+        },
+        {
+            "text": "正確,",
+            "start": 37627,
+            "end": 38657,
+            "confidence": 0.6165,
+            "speaker": "A"
+        },
+        {
+            "text": "完成",
+            "start": 38657,
+            "end": 38768,
+            "confidence": 0.906,
+            "speaker": "A"
+        },
+        {
+            "text": "會議",
+            "start": 38778,
+            "end": 39374,
+            "confidence": 0.5,
+            "speaker": "A"
+        },
+        {
+            "text": "記錄。",
+            "start": 39374,
+            "end": 40268,
+            "confidence": 0.5,
+            "speaker": "A"
+        }
+    ],
+    "utterances":
+    [
+        {
+            "speaker": "A",
+            "text": "HELLOHELLO 測試 HELLOHELLO測試會議 記錄 系統 參與者 組織 稿會議記錄 編輯 摘要 會出 PDF 絕效 先產生 AI 組織 稿編輯 組織 稿 中 的 講者 代表 產生 AI 會議 記錄 將會議 記錄 中行 動 的 地方 轉寫 在 組織 稿, 說明與 訂 正區塊, 再次 產生會議 摘要。 會議 摘要 中 可以 點擊 MMSS時間點, 確定 內容 是否 正確, 完成 會議 記錄。",
+            "confidence": 0.62810713,
+            "start": 943,
+            "end": 40268,
+            "words":
+            [
+                {
+                    "text": "HELLOHELLO",
+                    "start": 943,
+                    "end": 4946,
+                    "confidence": 0.9252,
+                    "speaker": "A"
+                },
+                {
+                    "text": "測試",
+                    "start": 4946,
+                    "end": 5176,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "HELLOHELLO測試會議",
+                    "start": 5176,
+                    "end": 8408,
+                    "confidence": 0.5598,
+                    "speaker": "A"
+                },
+                {
+                    "text": "記錄",
+                    "start": 8408,
+                    "end": 9839,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "系統",
+                    "start": 9839,
+                    "end": 11270,
+                    "confidence": 0.746,
+                    "speaker": "A"
+                },
+                {
+                    "text": "參與者",
+                    "start": 11270,
+                    "end": 11531,
+                    "confidence": 0.64033335,
+                    "speaker": "A"
+                },
+                {
+                    "text": "組織",
+                    "start": 11531,
+                    "end": 11641,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "稿會議記錄",
+                    "start": 11641,
+                    "end": 11751,
+                    "confidence": 0.5682,
+                    "speaker": "A"
+                },
+                {
+                    "text": "編輯",
+                    "start": 11751,
+                    "end": 11851,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "摘要",
+                    "start": 11851,
+                    "end": 11991,
+                    "confidence": 0.6995,
+                    "speaker": "A"
+                },
+                {
+                    "text": "會出",
+                    "start": 11991,
+                    "end": 12191,
+                    "confidence": 0.7,
+                    "speaker": "A"
+                },
+                {
+                    "text": "PDF",
+                    "start": 12191,
+                    "end": 12571,
+                    "confidence": 0.5883333,
+                    "speaker": "A"
+                },
+                {
+                    "text": "絕效",
+                    "start": 12571,
+                    "end": 12731,
+                    "confidence": 0.686,
+                    "speaker": "A"
+                },
+                {
+                    "text": "先產生",
+                    "start": 12731,
+                    "end": 12871,
+                    "confidence": 0.44433334,
+                    "speaker": "A"
+                },
+                {
+                    "text": "AI",
+                    "start": 12871,
+                    "end": 12911,
+                    "speaker": "A",
+                    "confidence": 0.0
+                },
+                {
+                    "text": "組織",
+                    "start": 12911,
+                    "end": 12951,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "稿編輯",
+                    "start": 12951,
+                    "end": 12992,
+                    "confidence": 0.625,
+                    "speaker": "A"
+                },
+                {
+                    "text": "組織",
+                    "start": 12992,
+                    "end": 13032,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "稿",
+                    "start": 13032,
+                    "end": 13072,
+                    "confidence": 0.749,
+                    "speaker": "A"
+                },
+                {
+                    "text": "中",
+                    "start": 13072,
+                    "end": 13092,
+                    "speaker": "A",
+                    "confidence": 0.0
+                },
+                {
+                    "text": "的",
+                    "start": 13092,
+                    "end": 13152,
+                    "confidence": 0.666,
+                    "speaker": "A"
+                },
+                {
+                    "text": "講者",
+                    "start": 13152,
+                    "end": 13572,
+                    "confidence": 0.7495,
+                    "speaker": "A"
+                },
+                {
+                    "text": "代表",
+                    "start": 13572,
+                    "end": 13992,
+                    "confidence": 0.901,
+                    "speaker": "A"
+                },
+                {
+                    "text": "產生",
+                    "start": 13992,
+                    "end": 14232,
+                    "confidence": 0.7075,
+                    "speaker": "A"
+                },
+                {
+                    "text": "AI",
+                    "start": 14232,
+                    "end": 14633,
+                    "confidence": 0.4735,
+                    "speaker": "A"
+                },
+                {
+                    "text": "會議",
+                    "start": 14643,
+                    "end": 17503,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "記錄",
+                    "start": 17503,
+                    "end": 20363,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "將會議",
+                    "start": 20363,
+                    "end": 24652,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "記錄",
+                    "start": 24652,
+                    "end": 27512,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "中行",
+                    "start": 27522,
+                    "end": 27843,
+                    "confidence": 0.901,
+                    "speaker": "A"
+                },
+                {
+                    "text": "動",
+                    "start": 27843,
+                    "end": 27943,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "的",
+                    "start": 27943,
+                    "end": 28043,
+                    "confidence": 0.898,
+                    "speaker": "A"
+                },
+                {
+                    "text": "地方",
+                    "start": 28043,
+                    "end": 28703,
+                    "confidence": 0.918,
+                    "speaker": "A"
+                },
+                {
+                    "text": "轉寫",
+                    "start": 28703,
+                    "end": 28973,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "在",
+                    "start": 28973,
+                    "end": 29243,
+                    "confidence": 0.925,
+                    "speaker": "A"
+                },
+                {
+                    "text": "組織",
+                    "start": 29243,
+                    "end": 29513,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "稿,",
+                    "start": 29513,
+                    "end": 29783,
+                    "confidence": 0.7125,
+                    "speaker": "A"
+                },
+                {
+                    "text": "說明與",
+                    "start": 29783,
+                    "end": 30204,
+                    "confidence": 0.6078,
+                    "speaker": "A"
+                },
+                {
+                    "text": "訂",
+                    "start": 30204,
+                    "end": 30554,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "正區塊,",
+                    "start": 30554,
+                    "end": 31014,
+                    "confidence": 0.5519,
+                    "speaker": "A"
+                },
+                {
+                    "text": "再次",
+                    "start": 31014,
+                    "end": 31644,
+                    "confidence": 0.936,
+                    "speaker": "A"
+                },
+                {
+                    "text": "產生會議",
+                    "start": 31644,
+                    "end": 32745,
+                    "confidence": 0.616,
+                    "speaker": "A"
+                },
+                {
+                    "text": "摘要。",
+                    "start": 32745,
+                    "end": 33845,
+                    "confidence": 0.7123,
+                    "speaker": "A"
+                },
+                {
+                    "text": "會議",
+                    "start": 33845,
+                    "end": 33925,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "摘要",
+                    "start": 33925,
+                    "end": 34125,
+                    "confidence": 0.885,
+                    "speaker": "A"
+                },
+                {
+                    "text": "中",
+                    "start": 34125,
+                    "end": 34326,
+                    "confidence": 0.901,
+                    "speaker": "A"
+                },
+                {
+                    "text": "可以",
+                    "start": 34326,
+                    "end": 34526,
+                    "confidence": 0.83,
+                    "speaker": "A"
+                },
+                {
+                    "text": "點擊",
+                    "start": 34526,
+                    "end": 34816,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "MMSS時間點,",
+                    "start": 34816,
+                    "end": 36987,
+                    "confidence": 0.5983,
+                    "speaker": "A"
+                },
+                {
+                    "text": "確定",
+                    "start": 36987,
+                    "end": 37227,
+                    "confidence": 0.6705,
+                    "speaker": "A"
+                },
+                {
+                    "text": "內容",
+                    "start": 37227,
+                    "end": 37347,
+                    "confidence": 0.666,
+                    "speaker": "A"
+                },
+                {
+                    "text": "是否",
+                    "start": 37347,
+                    "end": 37627,
+                    "confidence": 0.893,
+                    "speaker": "A"
+                },
+                {
+                    "text": "正確,",
+                    "start": 37627,
+                    "end": 38657,
+                    "confidence": 0.6165,
+                    "speaker": "A"
+                },
+                {
+                    "text": "完成",
+                    "start": 38657,
+                    "end": 38768,
+                    "confidence": 0.906,
+                    "speaker": "A"
+                },
+                {
+                    "text": "會議",
+                    "start": 38778,
+                    "end": 39374,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                },
+                {
+                    "text": "記錄。",
+                    "start": 39374,
+                    "end": 40268,
+                    "confidence": 0.5,
+                    "speaker": "A"
+                }
+            ]
+        }
+    ],
+    "confidence": 0.65137035,
+    "audio_duration": 41,
+    "punctuate": true,
+    "format_text": true,
+    "dual_channel": false,
+    "webhook_url": null,
+    "webhook_status_code": null,
+    "webhook_auth": false,
+    "webhook_auth_header_name": null,
+    "speed_boost": false,
+    "auto_highlights_result": null,
+    "auto_highlights": false,
+    "audio_start_from": null,
+    "audio_end_at": null,
+    "word_boost":
+    [],
+    "boost_param": null,
+    "prompt": null,
+    "keyterms_prompt":
+    [],
+    "filter_profanity": false,
+    "redact_pii": false,
+    "redact_pii_audio": false,
+    "redact_pii_audio_quality": null,
+    "redact_pii_policies": null,
+    "redact_pii_sub": null,
+    "speaker_labels": true,
+    "content_safety": false,
+    "iab_categories": false,
+    "content_safety_labels":
+    {
+        "status": "unavailable",
+        "results":
+        [],
+        "summary":
+        {}
+    },
+    "iab_categories_result":
+    {
+        "status": "unavailable",
+        "results":
+        [],
+        "summary":
+        {}
+    },
+    "language_detection": false,
+    "language_confidence_threshold": null,
+    "language_confidence": null,
+    "custom_spelling": null,
+    "throttled": false,
+    "auto_chapters": false,
+    "summarization": false,
+    "summary_type": null,
+    "summary_model": null,
+    "custom_topics": false,
+    "topics":
+    [],
+    "speech_threshold": null,
+    "speech_model": "best",
+    "chapters": null,
+    "disfluencies": false,
+    "entity_detection": false,
+    "sentiment_analysis": false,
+    "sentiment_analysis_results": null,
+    "entities": null,
+    "speakers_expected": null,
+    "summary": null,
+    "custom_topics_results": null,
+    "is_deleted": null,
+    "multichannel": null,
+    "project_id": 527006,
+    "token_id": 528441
+}

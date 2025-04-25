@@ -629,7 +629,6 @@ function formatTranscript(words) {
         "【名詞定義＆修正】\n",
         "\n",
         "【額外/附加的整理需求】\n",
-        "\n",
         "\n【以下是會議逐字稿】\n",
         formattedText
     ].join("\n")

@@ -62,10 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryIdInput.value = '';
         categoryModalTitle.textContent = '新增分類';
         categoryModal.show();
+        // 焦點設置到名稱輸入框
+        setTimeout(() => categoryNameInput.focus(), 500);
     });
 
     // 儲存分類（新增或編輯）
-    saveCategoryBtn.addEventListener('click', async () => {
+    async function saveCategory() {
         const id = categoryIdInput.value;
         const name = categoryNameInput.value.trim();
 
@@ -88,6 +90,23 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('儲存分類失敗:', error);
             alert(`儲存分類失敗: ${error.message}`);
         }
+    }
+
+    // 儲存按鈕點擊事件
+    saveCategoryBtn.addEventListener('click', saveCategory);
+
+    // 表單提交事件（Enter 鍵處理）
+    categoryForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // 阻止表單默認提交
+        saveCategory(); // 調用保存函數
+    });
+
+    // 輸入框按 Enter 鍵事件
+    categoryNameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // 阻止默認行為
+            saveCategory(); // 調用保存函數
+        }
     });
 
     // 列表按鈕事件委派 (編輯/刪除)
@@ -104,6 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryNameInput.value = categoryName;
             categoryModalTitle.textContent = '編輯分類';
             categoryModal.show();
+            // 焦點設置到名稱輸入框
+            setTimeout(() => categoryNameInput.focus(), 500);
         } else if (target.classList.contains('delete-btn')) {
             // 刪除按鈕
             if (confirm('確定要刪除這個分類嗎？')) {

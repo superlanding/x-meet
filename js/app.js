@@ -98,7 +98,7 @@ async function loadMeetings() {
                 : '未分類';
                 
             return `
-                <div class="list-group-item list-group-item-action">
+                <div class="list-group-item list-group-item-action" style="padding:15px;">
                     <div class="d-flex w-100 justify-content-between align-items-center" style="cursor: pointer;" onclick="window.location.href = 'meeting.html?id=${meeting.id}'">
                         <h5 class="mb-1">
                             <a href="meeting.html?id=${meeting.id}" class="text-decoration-none text-dark">
@@ -114,8 +114,10 @@ async function loadMeetings() {
                             </button>
                         </div>
                     </div>
-                    <p class="mb-1 text-muted">${new Date(meeting.createdAt).toLocaleString()}</p>
-                    <span class="badge bg-secondary rounded-pill">${escapeHtml(categoryName)}</span>
+                    <p class="mb-1 text-muted">
+                        <span class="badge bg-secondary rounded-pill" style="background-color: #2f488a !important; font-size:12px;">${escapeHtml(categoryName)}</span>
+                        ${new Date(meeting.createdAt).toLocaleString()}
+                    </p>
                 </div>
             `;
         }).join('');

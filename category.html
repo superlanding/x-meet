@@ -63,11 +63,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="categoryForm">
+                    <form id="categoryForm" onsubmit="return false;">
                         <input type="hidden" id="categoryId">
                         <div class="mb-3">
                             <label for="categoryName" class="form-label">分類名稱</label>
                             <input type="text" class="form-control" id="categoryName" required>
+                        </div>
+                        <div class="d-none">
+                            <!-- 隱藏的提交按鈕，用於捕獲 Enter 鍵按下事件 -->
+                            <button type="submit"></button>
                         </div>
                     </form>
                 </div>

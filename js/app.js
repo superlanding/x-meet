@@ -13,6 +13,7 @@ const addParticipantBtn = document.getElementById('addParticipant');
 const saveMeetingBtn = document.getElementById('saveMeeting');
 const meetingList = document.getElementById('meetingList');
 const importBackupBtn = document.getElementById('importBackupBtn');
+const meetingCategorySelect = document.getElementById('meetingCategory');
 
 // 事件監聽器
 document.addEventListener('DOMContentLoaded', async () => {
@@ -68,7 +69,16 @@ async function initializeApp() {
 // 載入會議列表
 async function loadMeetings() {
     try {
+        // 獲取會議數據
         const meetings = await Database.getAllMeetings();
+        
+        // 獲取所有分類，用於顯示分類名稱
+        const categories = await Database.getAllCategories();
+        const categoryMap = {};
+        categories.forEach(cat => {
+            categoryMap[cat.id] = cat.name;
+        });
+        
         const meetingsList = document.getElementById('meetingsList');
         const noMeetingsMessage = document.getElementById('noMeetingsMessage');
 
@@ -81,26 +91,34 @@ async function loadMeetings() {
         meetingsList.style.display = 'block';
         noMeetingsMessage.style.display = 'none';
 
-        meetingsList.innerHTML = meetings.map(meeting => `
-            <div class="list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-between align-items-center" style="cursor: pointer;" onclick="window.location.href = 'meeting.html?id=${meeting.id}'">
-                    <h5 class="mb-1">
-                        <a href="meeting.html?id=${meeting.id}" class="text-decoration-none text-dark">
-                            ${meeting.title}
-                        </a>
-                    </h5>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-primary edit-meeting" data-id="${meeting.id}">
-                            <i class="bi bi-pencil"></i>
-                        </button>
-                        <button type="button" class="btn btn-sm btn-outline-danger delete-meeting" data-id="${meeting.id}">
-                            <i class="bi bi-trash"></i>
-                        </button>
+        meetingsList.innerHTML = meetings.map(meeting => {
+            // 獲取分類名稱，如果沒有分類則顯示"未分類"
+            const categoryName = meeting.categoryId && categoryMap[meeting.categoryId] 
+                ? categoryMap[meeting.categoryId] 
+                : '未分類';
+                
+            return `
+                <div class="list-group-item list-group-item-action">
+                    <div class="d-flex w-100 justify-content-between align-items-center" style="cursor: pointer;" onclick="window.location.href = 'meeting.html?id=${meeting.id}'">
+                        <h5 class="mb-1">
+                            <a href="meeting.html?id=${meeting.id}" class="text-decoration-none text-dark">
+                                ${escapeHtml(meeting.title)}
+                            </a>
+                        </h5>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-primary edit-meeting" data-id="${meeting.id}">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-danger delete-meeting" data-id="${meeting.id}">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
                     </div>
+                    <p class="mb-1 text-muted">${new Date(meeting.createdAt).toLocaleString()}</p>
+                    <span class="badge bg-secondary rounded-pill">${escapeHtml(categoryName)}</span>
                 </div>
-                <p class="mb-1 text-muted">${new Date(meeting.createdAt).toLocaleString()}</p>
-            </div>
-        `).join('');
+            `;
+        }).join('');
 
         // 重新添加事件監聽器
         addMeetingEventListeners();
@@ -112,15 +130,52 @@ async function loadMeetings() {
     }
 }
 
+// HTML 轉義函數，防止 XSS
+function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') return unsafe;
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
+
 // 顯示新增會議模態框
 function showNewMeetingModal() {
     document.getElementById('modalTitle').textContent = '新增會議';
     newMeetingForm.reset();
     participantsList.innerHTML = '';
     addParticipantInput();
+    
+    // 加載分類數據
+    loadCategoriesForSelect(meetingCategorySelect);
+    
     saveMeetingBtn.textContent = '儲存';
     saveMeetingBtn.onclick = saveMeeting;
     newMeetingModal.show();
+}
+
+// 加載分類到下拉選單
+async function loadCategoriesForSelect(selectElement) {
+    try {
+        // 清空現有選項，但保留"未分類"
+        selectElement.innerHTML = '<option value="" selected>未分類</option>';
+        
+        // 從數據庫獲取分類
+        const categories = await Database.getAllCategories();
+        
+        // 填充下拉選單
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            selectElement.appendChild(option);
+        });
+    } catch (error) {
+        console.error('加載分類失敗:', error);
+        // 即使加載失敗，依然保留"未分類"選項
+    }
 }
 
 // 添加參與者輸入框
@@ -138,7 +193,8 @@ function addParticipantInput(name = '') {
 
 // 保存會議
 async function saveMeeting() {
-    const title = document.getElementById('meetingTitle').value;
+    const title = document.getElementById('meetingTitle').value.trim();
+    const categoryId = meetingCategorySelect.value ? parseInt(meetingCategorySelect.value) : null;
     const participants = Array.from(participantsList.querySelectorAll('input'))
         .map(input => input.value.trim())
         .filter(name => name !== '');
@@ -149,8 +205,11 @@ async function saveMeeting() {
     }
 
     try {
-        // 創建會議
-        const meetingId = await Database.createMeeting({ title });
+        // 創建會議，包含分類ID
+        const meetingId = await Database.createMeeting({ 
+            title,
+            categoryId 
+        });
 
         // 添加參與者
         for (const name of participants) {
@@ -202,6 +261,16 @@ async function editMeeting(id) {
 
         // 填充表單
         document.getElementById('meetingTitle').value = meeting.title.trim();
+        
+        // 加載分類並選中當前分類
+        await loadCategoriesForSelect(meetingCategorySelect);
+        if (meeting.categoryId) {
+            // 找到並選中對應的選項
+            const option = meetingCategorySelect.querySelector(`option[value="${meeting.categoryId}"]`);
+            if (option) {
+                option.selected = true;
+            }
+        }
 
         // 填充參與者
         participantsList.innerHTML = '';
@@ -222,8 +291,9 @@ async function editMeeting(id) {
 
 // 更新會議
 async function updateMeeting(id) {
-    const title = document.getElementById('meetingTitle').value;
-    const participants = Array.from(participantsList.querySelectorAll('input[type="text"]'))
+    const title = document.getElementById('meetingTitle').value.trim();
+    const categoryId = meetingCategorySelect.value ? parseInt(meetingCategorySelect.value) : null;
+    const participants = Array.from(participantsList.querySelectorAll('input'))
         .map(input => input.value.trim())
         .filter(name => name !== '');
 
@@ -233,11 +303,14 @@ async function updateMeeting(id) {
     }
 
     try {
-        // 更新會議標題
-        await Database.updateMeeting(id, { title });
+        // 更新會議，包含分類ID
+        await Database.updateMeeting(id, { 
+            title,
+            categoryId
+        });
 
         // 更新參與者
-        await Database.deleteMeetingParticipants(id); // 只刪除參與者
+        await Database.deleteMeetingParticipants(id);
         for (const name of participants) {
             await Database.addParticipant({
                 meetingId: id,

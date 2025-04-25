@@ -2,13 +2,18 @@
 const db = new Dexie('MeetingDB');
 
 // 定義數據庫結構
-db.version(7).stores({
-    meetings: '++id, title, createdAt, updatedAt',
+db.version(9).stores({
+    meetings: '++id, title, categoryId, createdAt, updatedAt',
     participants: '++id, meetingId, name',
     transcripts: '++id, meetingId, content, rawJson, createdAt',
     summaries: '++id, meetingId, content, createdAt',
     recordings: '++id, meetingId, audio, createdAt',
-    settings: '++id, assemblyaiApiKey, grokApiKey, grokModel'
+    settings: '++id, assemblyaiApiKey, grokApiKey, grokModel',
+    categories: '++id, &name, createdAt'
+}).upgrade(tx => {
+    // 版本升級邏輯 (如果需要遷移舊數據)
+    // 對於簡單添加索引，Dexie 通常會自動處理
+    console.log("Upgrading database schema to version 9 (adding index for categories.createdAt)...");
 });
 
 // 數據庫操作類
@@ -20,7 +25,8 @@ class Database {
     // 會議相關操作
     static async createMeeting(meeting) {
         return await db.meetings.add({
-            ...meeting,
+            title: meeting.title,
+            categoryId: meeting.categoryId,
             createdAt: new Date(),
             updatedAt: new Date()
         });
@@ -36,7 +42,8 @@ class Database {
 
     static async updateMeeting(id, meeting) {
         return await db.meetings.update(id, {
-            ...meeting,
+            title: meeting.title,
+            categoryId: meeting.categoryId,
             updatedAt: new Date()
         });
     }
@@ -232,6 +239,82 @@ class Database {
         } catch (error) {
             console.error('檢查設定失敗:', error);
             return false;
+        }
+    }
+
+    // --- 分類相關函數 --- 
+    static async addCategory(name) {
+        if (!name || typeof name !== 'string' || name.trim() === '') {
+            throw new Error('分類名稱不能為空');
+        }
+        try {
+            // 檢查名稱是否已存在
+            const existing = await db.categories.where('name').equals(name.trim()).first();
+            if (existing) {
+                throw new Error(`分類名稱 '${name.trim()}' 已存在`);
+            }
+            return await db.categories.add({ name: name.trim(), createdAt: new Date() });
+        } catch (error) {
+            console.error('新增分類失敗:', error);
+            throw error;
+        }
+    }
+
+    static async getAllCategories() {
+        try {
+            return await db.categories.orderBy('createdAt').toArray();
+        } catch (error) {
+            console.error('獲取所有分類失敗:', error);
+            throw error;
+        }
+    }
+
+    static async updateCategory(id, name) {
+        if (!id || !name || typeof name !== 'string' || name.trim() === '') {
+            throw new Error('ID 和分類名稱不能為空');
+        }
+        try {
+            // 檢查新名稱是否與其他分類衝突（排除自身）
+            const existing = await db.categories.where('name').equals(name.trim()).first();
+            if (existing && existing.id !== id) {
+                throw new Error(`分類名稱 '${name.trim()}' 已被其他分類使用`);
+            }
+
+            const count = await db.categories.update(id, { name: name.trim(), updatedAt: new Date() });
+            if (count === 0) {
+                throw new Error(`找不到 ID 為 ${id} 的分類`);
+            }
+            return count;
+        } catch (error) {
+            console.error('更新分類失敗:', error);
+            throw error;
+        }
+    }
+
+    static async deleteCategory(id) {
+        if (!id) {
+            throw new Error('ID 不能為空');
+        }
+        try {
+            // 檢查是否有會議使用了此分類
+            const meetingsInCategory = await db.meetings.where('categoryId').equals(id).count();
+            if (meetingsInCategory > 0) {
+                throw new Error(`此分類下尚有 ${meetingsInCategory} 個會議，無法刪除。請先將這些會議移至其他分類。`);
+            }
+            await db.categories.delete(id);
+        } catch (error) {
+            console.error('刪除分類失敗:', error);
+            throw error;
+        }
+    }
+
+    static async getCategory(id) {
+        if (!id) return null;
+        try {
+            return await db.categories.get(id);
+        } catch (error) {
+            console.error('獲取分類失敗:', error);
+            return null;
         }
     }
 } 

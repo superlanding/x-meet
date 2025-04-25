@@ -22,6 +22,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
+                        <a class="nav-link" href="category.html">
+                            <i class="bi bi-tags"></i> 會議分類
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="settings.html">
                             <i class="bi bi-gear"></i> 設定
                         </a>
@@ -68,6 +73,13 @@
                         <div class="mb-3">
                             <label for="meetingTitle" class="form-label">會議標題</label>
                             <input type="text" class="form-control" id="meetingTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="meetingCategory" class="form-label">會議分類</label>
+                            <select class="form-select" id="meetingCategory">
+                                <option value="" selected>未分類</option>
+                                <!-- 分類選項將動態載入 -->
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">參與者</label>

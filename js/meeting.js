@@ -4,6 +4,7 @@ const deleteMeetingBtn = document.getElementById('deleteMeetingBtn');
 const editMeetingModal = new bootstrap.Modal(document.getElementById('editMeetingModal'));
 const editMeetingForm = document.getElementById('editMeetingForm');
 const editParticipantsList = document.getElementById('editParticipantsList');
+const meetingCategorySelect = document.getElementById('meetingCategories');
 const addEditParticipantBtn = document.getElementById('addEditParticipant');
 const saveEditMeetingBtn = document.getElementById('saveEditMeeting');
 
@@ -132,6 +133,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadMeetingDetails() {
     try {
         const meeting = await Database.getMeeting(CONFIG.currentMeetingId);
+        const category = await Database.getCategory(meeting.categoryId);
+
         let formattedContent = "";
         if (!meeting) {
             window.location.href = 'index.html';
@@ -144,11 +147,16 @@ async function loadMeetingDetails() {
         // 更新會議標題
         document.getElementById('meetingTitle').textContent = meeting.title;
 
+        // 載入分類
+        if (category) {
+            document.getElementById('meetingCategory').innerHTML= `<span class="badge bg-secondary rounded-pill" style="background-color: #2f488a !important; font-size:12px;">${(category.name)}</span>`;
+        }
+
         // 載入參與者
         const participants = await Database.getMeetingParticipants(CONFIG.currentMeetingId);
         const participantsList = document.getElementById('participantsList');
         participantsList.innerHTML = participants.map(p => `
-            <li class="list-group-item">${p.name}</li>
+            <span>${p.name}</span>
         `).join('');
 
         // 載入逐字稿
@@ -201,14 +209,18 @@ editMeetingBtn.addEventListener('click', async () => {
         document.getElementById('editMeetingTitle').value = meeting.title;
 
         // 填充參與者
-        editParticipantsList.innerHTML = participants.map(p => `
+        editParticipantsList.innerHTML = participants.map(p => 
+            `
             <div class="input-group mb-2">
-                <input type="text" class="form-control" placeholder="輸入姓名" value="${p.name}">
+                <input type="text" class="form-control" placeholder="" value="${p ? p.name : ''}">
                 <button type="button" class="btn btn-outline-danger remove-participant">
                     <i class="bi bi-trash"></i>
                 </button>
-            </div>
-        `).join('');
+            </div>`
+        ).join('');
+
+        // 加載分類並選中當前分類
+        await loadCategoriesForSelect(meetingCategorySelect);
 
         editMeetingModal.show();
     } catch (error) {
@@ -238,6 +250,7 @@ addEditParticipantBtn.addEventListener('click', () => {
 // 保存編輯的會議
 saveEditMeetingBtn.addEventListener('click', async () => {
     const title = document.getElementById('editMeetingTitle').value;
+    const categoryId = meetingCategorySelect.value ? parseInt(meetingCategorySelect.value) : null;
     const participants = Array.from(editParticipantsList.querySelectorAll('input[type="text"]'))
         .map(input => input.value)
         .filter(name => name.trim() !== '');
@@ -250,7 +263,8 @@ saveEditMeetingBtn.addEventListener('click', async () => {
     try {
         // 更新會議
         await Database.updateMeeting(CONFIG.currentMeetingId, {
-            title
+            title,
+            categoryId
         });
 
         // 更新參與者
@@ -367,3 +381,24 @@ async function exportBackup() {
         showToast('匯出備份失敗，請稍後再試', 'error');
     }
 } 
+// 加載分類到下拉選單
+async function loadCategoriesForSelect(selectElement) {
+    try {
+        // 清空現有選項，但保留"未分類"
+        selectElement.innerHTML = '<option value="" selected>未分類</option>';
+        
+        // 從數據庫獲取分類
+        const categories = await Database.getAllCategories();
+        
+        // 填充下拉選單
+        categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            selectElement.appendChild(option);
+        });
+    } catch (error) {
+        console.error('加載分類失敗:', error);
+        // 即使加載失敗，依然保留"未分類"選項
+    }
+}

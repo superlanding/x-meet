@@ -38,7 +38,7 @@
 
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1>會議列表</h1>
+            <h3>會議列表</h3>
             <div class="d-flex gap-2">
                 <button id="importBackupBtn" class="btn btn-outline-primary">
                     <i class="bi bi-upload"></i> 匯入備份
@@ -47,6 +47,16 @@
                     <i class="bi bi-plus-circle"></i> 新增會議
                 </button>
             </div>
+        </div>
+
+        <!-- 會議分類過濾器 -->
+        <div id="categoryTabs" class="mb-4">
+            <ul class="nav nav-tabs category-filter">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#" data-category="all">全部</a>
+                </li>
+                <!-- 分類選項將動態載入 -->
+            </ul>
         </div>
 
         <div id="meetingsList" class="list-group">
@@ -94,10 +104,6 @@
                             <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="addParticipant">
                                 <i class="bi bi-plus-circle"></i> 新增參與者
                             </button>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">會議內容</label>
-                            <textarea class="form-control" id="meetingContent" rows="5"></textarea>
                         </div>
                     </form>
                 </div>

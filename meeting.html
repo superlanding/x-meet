@@ -34,7 +34,10 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0" id="meetingTitle"></h5>
+                <div>
+                    <h5 class="mb-0" id="meetingTitle"></h5>
+                    <span id="meetingCategory"></span>
+                </div>
                 <div>
                     <button id="editMeetingBtn" class="btn btn-outline-primary btn-sm me-2">
                         <i class="bi bi-pencil"></i> 編輯會議
@@ -51,7 +54,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h6 class="mb-3">參與者</h6>
-                        <ul id="participantsList" class="list-group mb-4"></ul>
+                        <div id="participantsList" class="mb-4"></div>
 
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h6 class="mb-0">逐字稿</h6>
@@ -160,6 +163,13 @@
                         <div class="mb-3">
                             <label for="editMeetingTitle" class="form-label">會議標題</label>
                             <input type="text" class="form-control" id="editMeetingTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editMeetingTitle" class="form-label">會議分類</label>
+                            <select class="form-select" id="meetingCategories">
+                                <option value="" selected>未分類</option>
+                                <!-- 分類選項將動態載入 -->
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">參與者</label>

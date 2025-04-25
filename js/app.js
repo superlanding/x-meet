@@ -3,6 +3,7 @@ let mediaRecorder = null;
 let audioChunks = [];
 let isRecording = false;
 let currentMeetingId = null;
+let currentCategoryFilter = 'all'; // 當前分類過濾器
 
 // DOM 元素
 const newMeetingBtn = document.getElementById('newMeetingBtn');
@@ -14,6 +15,7 @@ const saveMeetingBtn = document.getElementById('saveMeeting');
 const meetingList = document.getElementById('meetingList');
 const importBackupBtn = document.getElementById('importBackupBtn');
 const meetingCategorySelect = document.getElementById('meetingCategory');
+const categoryTabs = document.getElementById('categoryTabs');
 
 // 事件監聽器
 document.addEventListener('DOMContentLoaded', async () => {
@@ -47,6 +49,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.log('更新後的 CONFIG:', CONFIG);
         }
 
+        // 載入分類標籤
+        await loadCategoryTabs();
+        
         // 載入會議列表
         await loadMeetings();
     } catch (error) {
@@ -61,16 +66,71 @@ document.getElementById('importBackupBtn').addEventListener('click', importBacku
 
 // 初始化應用
 async function initializeApp() {
+    await loadCategoryTabs();
     await loadMeetings();
     // 添加會議列表的事件監聽器
     addMeetingEventListeners();
+}
+
+// 載入分類標籤
+async function loadCategoryTabs() {
+    try {
+        const categories = await Database.getAllCategories();
+        const categoryTabsUl = categoryTabs.querySelector('ul.category-filter');
+        
+        // 保留"全部"標籤，清除其他標籤
+        const allTab = categoryTabsUl.querySelector('[data-category="all"]');
+        categoryTabsUl.innerHTML = '';
+        categoryTabsUl.appendChild(allTab);
+        
+        // 如果沒有分類，只顯示"全部"
+        if (categories.length === 0) {
+            return;
+        }
+        
+        // 添加分類標籤
+        categories.forEach(category => {
+            const li = document.createElement('li');
+            li.className = 'nav-item';
+            li.innerHTML = `<a class="nav-link" href="#" data-category="${category.id}">${escapeHtml(category.name)}</a>`;
+            categoryTabsUl.appendChild(li);
+        });
+        
+        // 添加標籤點擊事件
+        categoryTabsUl.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', async (e) => {
+                e.preventDefault();
+                
+                // 移除所有標籤的 active 類
+                categoryTabsUl.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                
+                // 為當前點擊的標籤添加 active 類
+                link.classList.add('active');
+                
+                // 更新當前過濾器並重新載入會議
+                currentCategoryFilter = link.dataset.category;
+                await loadMeetings();
+            });
+        });
+    } catch (error) {
+        console.error('載入分類標籤失敗:', error);
+    }
 }
 
 // 載入會議列表
 async function loadMeetings() {
     try {
         // 獲取會議數據
-        const meetings = await Database.getAllMeetings();
+        const allMeetings = await Database.getAllMeetings();
+        
+        // 根據分類過濾會議
+        let meetings;
+        if (currentCategoryFilter === 'all') {
+            meetings = allMeetings;
+        } else {
+            const categoryId = parseInt(currentCategoryFilter);
+            meetings = allMeetings.filter(meeting => meeting.categoryId === categoryId);
+        }
         
         // 獲取所有分類，用於顯示分類名稱
         const categories = await Database.getAllCategories();
@@ -85,6 +145,20 @@ async function loadMeetings() {
         if (!meetings || meetings.length === 0) {
             meetingsList.style.display = 'none';
             noMeetingsMessage.style.display = 'block';
+            
+            // 更新無會議提示消息，根據當前過濾器
+            const noMeetingsTitle = noMeetingsMessage.querySelector('h3');
+            const noMeetingsText = noMeetingsMessage.querySelector('p');
+            
+            if (currentCategoryFilter === 'all') {
+                noMeetingsTitle.textContent = '目前沒有會議';
+                noMeetingsText.textContent = '點擊上方的「新增會議」按鈕來創建您的第一個會議';
+            } else {
+                const categoryName = categoryMap[parseInt(currentCategoryFilter)] || '此分類';
+                noMeetingsTitle.textContent = `${categoryName} 中沒有會議`;
+                noMeetingsText.textContent = '點擊上方的「新增會議」按鈕來創建會議，或選擇其他分類查看';
+            }
+            
             return;
         }
 
@@ -95,7 +169,9 @@ async function loadMeetings() {
             // 獲取分類名稱，如果沒有分類則顯示"未分類"
             const categoryName = meeting.categoryId && categoryMap[meeting.categoryId] 
                 ? categoryMap[meeting.categoryId] 
-                : '未分類';
+                : '';
+
+            const categoryBadgeHTML = (categoryName !== "" ? `<span class="badge bg-secondary rounded-pill" style="background-color: #2f488a !important; font-size:12px;">${escapeHtml(categoryName)}</span>` : '');
                 
             return `
                 <div class="list-group-item list-group-item-action" style="padding:15px;">
@@ -115,7 +191,7 @@ async function loadMeetings() {
                         </div>
                     </div>
                     <p class="mb-1 text-muted">
-                        <span class="badge bg-secondary rounded-pill" style="background-color: #2f488a !important; font-size:12px;">${escapeHtml(categoryName)}</span>
+                        ${categoryBadgeHTML}
                         ${new Date(meeting.createdAt).toLocaleString()}
                     </p>
                 </div>
@@ -321,6 +397,20 @@ async function updateMeeting(id) {
         }
 
         newMeetingModal.hide();
+        
+        // 如果會議的分類已變更，並且當前正在過濾特定分類，則更新過濾器
+        if (currentCategoryFilter !== 'all' && parseInt(currentCategoryFilter) !== categoryId) {
+            // 切換回"全部"分類
+            currentCategoryFilter = 'all';
+            const allTab = document.querySelector('[data-category="all"]');
+            if (allTab) {
+                document.querySelectorAll('.category-filter .nav-link').forEach(l => l.classList.remove('active'));
+                allTab.classList.add('active');
+            }
+        }
+        
+        // 重新載入分類標籤和會議列表
+        await loadCategoryTabs();
         await loadMeetings();
 
         // 重置按鈕
@@ -340,6 +430,9 @@ async function deleteMeeting(id) {
 
     try {
         await Database.deleteMeeting(id);
+        
+        // 重新載入分類標籤和會議列表
+        await loadCategoryTabs();
         await loadMeetings();
     } catch (error) {
         console.error('刪除會議失敗:', error);
